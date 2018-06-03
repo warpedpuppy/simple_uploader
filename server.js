@@ -6,6 +6,17 @@ var http = require('http');
 var formidable = require('formidable');
 var fs = require('fs');
 
+let allow = true;
+
+app.get('/test.html', function(req, res, next){
+
+  if(allow === false) {
+    res.redirect('/index.html');
+  } else {
+     next();
+  }
+
+})
 
 app.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
