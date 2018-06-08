@@ -9,25 +9,28 @@ var fs = require('fs');
 let allow = true;
 
 app.get('/test.html', function(req, res, next){
-
   if(allow === false) {
     res.redirect('/index.html');
   } else {
      next();
   }
-
 })
 
 app.post('/fileupload', function(req, res){
     var form = new formidable.IncomingForm();
      form.parse(req, function (err, fields, files) {
-         var oldpath = files.filetoupload.path;
-         var newpath = './uploads/' + files.filetoupload.name;
-        fs.rename(oldpath, newpath, function (err) {
-          if (err) throw err;
-          res.write('File uploaded and moved!');
-          res.end();
-        });
+    console.log('err = ', err)
+      var oldpath = files['0'].path;
+     var newpath = './uploads/' + files['0'].name;
+     console.log(oldpath+" "+newpath)
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) {
+        console.log('err = ', err)
+        throw err;
+      }
+      //res.write('File uploaded and moved!');
+      res.redirect('/index.html');
+    });
     });
 })
 
