@@ -5,7 +5,10 @@ const path = require('path');
 var http = require('http');
 var formidable = require('formidable');
 var fs = require('fs');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 let allow = true;
 
 app.get('/test.html', function(req, res, next){
@@ -17,15 +20,22 @@ app.get('/test.html', function(req, res, next){
 })
 
 app.post('/fileupload', function(req, res){
+
     var form = new formidable.IncomingForm();
-     form.parse(req, function (err, fields, files) {
-    console.log('err = ', err)
-      var oldpath = files['0'].path;
-     var newpath = './uploads/' + files['0'].name;
-     console.log(oldpath+" "+newpath)
+    console.log("form = ", form)
+    form.parse(req, function (err, fields, files) {
+
+    //FIELDS ARE THE TEXT FIELDS
+    console.log("fields = ", fields)
+    //FILES ARE THE UPLOADED FIELDS
+    console.log("files = ", files)
+    
+    var oldpath = files['0'].path;
+    var newpath = './uploads/' + files['0'].name;
+
     fs.rename(oldpath, newpath, function (err) {
       if (err) {
-        console.log('err = ', err)
+
         throw err;
       }
       //res.write('File uploaded and moved!');

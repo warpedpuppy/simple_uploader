@@ -2,8 +2,6 @@ $(function(){
 
 	let files;
 	$('input[type=file]').on('change', prepareUpload);
-
-	// Grab the files and set them to our variable
 	function prepareUpload (event) {
 	  files = event.target.files;
 	}
@@ -13,10 +11,10 @@ $(function(){
 		e.preventDefault();
 
 		  var data = new FormData();
-
 		    $.each(files, function(key, value) {
 		        data.append(key, value);
 		    });
+		    data.append('testText', 'testing123');
 
 		    $.ajax({
 		        url: '/fileupload',
