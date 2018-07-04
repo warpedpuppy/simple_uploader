@@ -15,6 +15,7 @@ $(function(){
 		        data.append(key, value);
 		    });
 		    data.append('testText', 'testing123');
+		    data.append('testSelect', $("select[name=testSelect]").val())
 
 		    $.ajax({
 		        url: '/fileupload',
@@ -22,14 +23,14 @@ $(function(){
 		        data: data,
 		        cache: false,
 		        dataType: 'json',
-		        processData: false, // Don't process the files
-		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		        processData: false, 
+		        contentType: false,
 		        success: function(data, textStatus, jqXHR)
 		        {
 		            if(typeof data.error === 'undefined')
 		            {
 		                // Success so call function to process the form
-		                submitForm(event, data);
+		                //submitForm(event, data);
 		            }
 		            else
 		            {
