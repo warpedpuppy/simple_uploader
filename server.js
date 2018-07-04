@@ -22,13 +22,13 @@ app.get('/test.html', function(req, res, next){
 app.post('/fileupload', function(req, res){
 
     var form = new formidable.IncomingForm();
-    console.log("form = ", form)
+    //console.log("req = ", req)
     form.parse(req, function (err, fields, files) {
 
     //FIELDS ARE THE TEXT FIELDS
-    console.log("fields = ", fields)
+    //console.log("fields = ", fields)
     //FILES ARE THE UPLOADED FIELDS
-    console.log("files = ", files)
+    //console.log("files = ", files)
     
     var oldpath = files['0'].path;
     var newpath = './uploads/' + files['0'].name;
